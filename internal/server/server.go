@@ -2,14 +2,14 @@ package server
 
 import (
 	"context"
+	"github.com/alganbr/kedai-api-gateway/configs"
 	"github.com/alganbr/kedai-api-gateway/internal/routes"
-	"github.com/alganbr/kedai-utils/configs"
 	"go.uber.org/fx"
 )
 
 func StartApplication(
 	lifecycle fx.Lifecycle,
-	cfg configs.Config,
+	cfg *configs.Config,
 	router routes.Router,
 	routes routes.Routes,
 ) {

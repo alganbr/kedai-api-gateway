@@ -1,20 +1,47 @@
 package configs
 
 import (
-	"github.com/alganbr/kedai-utils/configs"
 	"github.com/spf13/viper"
 	"strings"
 )
 
-func NewConfig() configs.Config {
+type Config struct {
+	Server   ServerConfig
+	Database DatabaseConfig
+	Outbound OutboundConfig
+}
+
+type ServerConfig struct {
+	Name        string
+	Version     string
+	Description string
+	Host        string
+	Port        int
+}
+
+type DatabaseConfig struct {
+	User      string
+	Password  string
+	Host      string
+	Name      string
+	Port      string
+	Migration string
+}
+
+type OutboundConfig struct {
+	AuthSvcClient string
+	UserSvcClient string
+}
+
+func NewConfig() *Config {
 	config, err := ReadInConfig()
 	if err != nil {
 		panic(err)
 	}
-	return *config
+	return config
 }
 
-func ReadInConfig() (config *configs.Config, err error) {
+func ReadInConfig() (config *Config, err error) {
 	viper.SetConfigType("yaml")
 	viper.SetConfigName("env.yml")
 	viper.AddConfigPath("./configs")
